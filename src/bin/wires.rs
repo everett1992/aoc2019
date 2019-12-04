@@ -68,7 +68,7 @@ impl Wire {
         let mut cursor = (0, 0);
         let mut delay = 0;
         for segment in self.segments {
-            for space in segment.x(cursor) {
+            for space in segment.spaces(cursor) {
                 delay += 1;
                 func(space, delay);
                 cursor = space;
@@ -79,7 +79,7 @@ impl Wire {
 }
 
 impl Segment {
-    fn x(self, (x, y): (i64, i64)) -> Vec<(i64, i64)> {
+    fn spaces(self, (x, y): (i64, i64)) -> Vec<(i64, i64)> {
         let range = 1..self.length+1;
         match self.dir {
             Dir::UP    => range.map(|i| x+i).map(|x| (x, y)).collect(),
